@@ -1,21 +1,20 @@
-import { TaskType } from "./App"
-import { Button } from './Button';
-
+import { TaskType } from "../App";
+import { Button } from "./Button";
 type TodolistItemPropsType = {
   title: string;
   tasks: TaskType[];
+  date?: string;
 };
 
-
-export const TodolistItem = ({ tasks, title }: TodolistItemPropsType) => {
+export const TodolistItem = ({ tasks, title, date }: TodolistItemPropsType) => {
   const tasksList =
-    tasks.length === 0 ? (
+    tasks.length < 1 ? (
       <span>Your taskslist is empty</span>
     ) : (
       <ul>
         {tasks.map((t: TaskType) => {
           return (
-            <li>
+            <li key={crypto.randomUUID()}>
               <input type="checkbox" checked={t.isDone} />
               <span>{t.title}</span>
             </li>
@@ -28,9 +27,10 @@ export const TodolistItem = ({ tasks, title }: TodolistItemPropsType) => {
       <h3>{title}</h3>
       <div>
         <input />
-        <button>+</button>
+        <Button description={"+"} />
       </div>
       {tasksList}
+      <span>{date}</span>
       <div>
         <Button description={"All"} />
         <Button description={"Active"} />
